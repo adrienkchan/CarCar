@@ -18,6 +18,7 @@ class AutomobileList extends React.Component {
         }
     }
 
+
     render() {
         return (
             <div>
@@ -27,7 +28,7 @@ class AutomobileList extends React.Component {
                         <tr>
                             <th>Color</th>
                             <th>Year</th>
-                            <th>VIN</th>
+                            <th>Vin</th>
                             <th>Model</th>
                         </tr>
                     </thead>
@@ -38,7 +39,7 @@ class AutomobileList extends React.Component {
                                     <td>{auto.color}</td>
                                     <td>{auto.year}</td>
                                     <td>{auto.vin}</td>
-                                    <td>{auto.model}</td>
+                                    <td>{auto.model.name}</td>
                                 </tr>
                             )
                         })}

@@ -1,49 +1,52 @@
-import React, { useState, useEffect } from 'react';
-import './index.css';
+import React from 'react';
+import { Link } from 'react-router-dom'
 
-
-function AutomobileList() {
-    const [automobileList, setAutomobileList] = useState([]);
-    const fetchAutomobileList = async () => {
-        const url = "http://localhost:8100/api/automobiles/";
-        const response = await fetch(url);
-
-        if (response.ok) {
-            const listAutomobiles = await response.json();
-            setAutomobileList(listAutomobiles.automobiles);
+class AutomobileList extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            automobiles: []
         }
-    };
-    useEffect(() => { fetchAutomobileList() }, []);
+    }
 
+    async componentDidMount() {
+        const url = "http://localhost:8100/api/automobiles/"
+        const response = await fetch(url)
+        if (response.ok) {
+            let data = await response.json();
+            this.setState({ automobiles: data.automobiles })
+        }
+    }
 
-
-    return (
-        <table className="table table-striped">
-            <thead>
-                <tr>
-                    <th>Color</th>
-                    <th>Year</th>
-                    <th>VIN</th>
-                    <th>Model</th>
-                </tr>
-            </thead>
-            <tbody>
-                {automobileList.map(auto => {
-                    return (
-                        <tr key={auto.href}>
-                            <td>{auto.color}</td>
-                            <td>{auto.year}</td>
-                            <td>{auto.vin}</td>
-                            <td>{auto.model}</td>
-                            <td>
-                                <button onClick={deleteHat(auto.href)}>Delete</button></td>
+    render() {
+        return (
+            <div>
+                <h1>Automobiles</h1>
+                <table className="table">
+                    <thead>
+                        <tr>
+                            <th>Color</th>
+                            <th>Year</th>
+                            <th>VIN</th>
+                            <th>Model</th>
                         </tr>
-                    );
-                })}
-            </tbody>
-        </table>
-    )
-
+                    </thead>
+                    <tbody>
+                        {this.state.automobiles.map(auto => {
+                            return (
+                                <tr key={auto.id}>
+                                    <td>{auto.color}</td>
+                                    <td>{auto.year}</td>
+                                    <td>{auto.vin}</td>
+                                    <td>{auto.model}</td>
+                                </tr>
+                            )
+                        })}
+                    </tbody>
+                </table>
+            </div>
+        )
+    }
 }
 
-export default AutomobileList;
+export default AutomobileList

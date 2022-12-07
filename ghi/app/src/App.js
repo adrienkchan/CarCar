@@ -34,7 +34,3 @@ function App(props) {
 }
 
 export default App;
-
-
-<Route path="automobiles" element={<AutomobileList automobiles={props.automobiles} />} />
-<Route path="automobiles/new" element={<AutomobileForm />} />

@@ -8,25 +8,18 @@ class AutomobileForm extends React.Component {
             color: "",
             year: "",
             vin: "",
+            model: "",
             models: []
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    async componentDidMount() {
-        const automobileUrl = "http://localhost:8100/api/models/";
-        const response = await fetch(automobileUrl);
-        if (response.ok) {
-            const data = await response.json();
-            this.setState({ models: data.models });
-        }
-    }
     async handleSubmit(event) {
         event.preventDefault();
         const data = { ...this.state };
         delete data.models
-        delete data.manufacturers
+        console.log(data)
 
         const locationUrl = 'http://localhost:8100/api/automobiles/';
         const fetchConfig = {
@@ -39,13 +32,23 @@ class AutomobileForm extends React.Component {
         const response = await fetch(locationUrl, fetchConfig);
         if (response.ok) {
             const newAutomobile = await response.json();
-            console.log(newAutomobile);
-            this.setState({
+            // console.log(newAutomobile);
+            const cleared = {
                 vin: "",
                 year: "",
                 color: "",
-                models: [],
-            });
+                model: "",
+            }
+            this.setState(cleared);
+        }
+    }
+
+    async componentDidMount() {
+        const automobileUrl = "http://localhost:8100/api/models/";
+        const response = await fetch(automobileUrl);
+        if (response.ok) {
+            const data = await response.json();
+            this.setState({ models: data.models });
         }
     }
 
@@ -64,11 +67,11 @@ class AutomobileForm extends React.Component {
                         <h1>Add a customer's vehicle.</h1>
                         <form onSubmit={this.handleSubmit} id="create-automobile-form">
                             <div className="form-floating mb-3">
-                                <input onChange={this.handleChangeYear} value={this.state.year} placeholder="Year" required type="text" name="year" id="year" className="form-control" />
+                                <input onChange={this.handleChange} value={this.state.year} placeholder="Year" required type="text" name="year" id="year" className="form-control" />
                                 <label htmlFor="year">Year</label>
                             </div>
                             <div className="mb-3">
-                                <select onChange={this.handleChangeModel} value={this.state.model} required id="model" name="model" className="form-select">
+                                <select onChange={this.handleChange} value={this.state.model} required id="model" name="model" className="form-select">
                                     <option value="">Choose a model</option>
                                     {this.state.models.map(model => {
                                         return (
@@ -80,11 +83,11 @@ class AutomobileForm extends React.Component {
                                 </select>
                             </div>
                             <div className="form-floating mb-3">
-                                <input onChange={this.handleChangeColor} value={this.state.color} placeholder="Color" required type="text" name="color" id="color" className="form-control" />
+                                <input onChange={this.handleChange} value={this.state.color} placeholder="Color" required type="text" name="color" id="color" className="form-control" />
                                 <label htmlFor="color">Color</label>
                             </div>
                             <div className="form-floating mb-3">
-                                <input onChange={this.handleChangeVIN} value={this.state.vin} placeholder="VIN" required type="text" name="vin" id="vin" className="form-control" />
+                                <input onChange={this.handleChange} value={this.state.vin} placeholder="VIN" required type="text" name="vin" id="vin" className="form-control" />
                                 <label htmlFor="vin">VIN</label>
                             </div>
                             <button className="btn btn-primary">Add</button>

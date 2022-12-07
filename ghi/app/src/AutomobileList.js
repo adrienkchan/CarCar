@@ -35,8 +35,6 @@ function AutomobileList() {
                             <td>{auto.year}</td>
                             <td>{auto.vin}</td>
                             <td>{auto.model}</td>
-                            <td>
-                                <button onClick={deleteHat(auto.href)}>Delete</button></td>
                         </tr>
                     );
                 })}

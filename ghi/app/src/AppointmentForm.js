@@ -5,10 +5,10 @@ class AppointmentForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            vin: "",
+            automobile: "",
             customer_name: "",
-            date: "",
-            time: "",
+            appt_date: "",
+            appt_time: "",
             reason: "",
             technician: "",
             technicians: [],
@@ -18,6 +18,34 @@ class AppointmentForm extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    async handleSubmit(event) {
+        event.preventDefault();
+        const data = { ...this.state };
+        delete data.technicians
+        console.log(data)
+        const appointmentUrl = 'http://localhost:8080/api/appointments/';
+        const fetchConfig = {
+            method: "post",
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        };
+        const response = await fetch(appointmentUrl, fetchConfig);
+        if (response.ok) {
+            const newAppointment = await response.json();
+            console.log(newAppointment);
+            const cleared = {
+                automobile: "",
+                customer_name: "",
+                appt_date: "",
+                appt_time: "",
+                reason: "",
+                technician: "",
+            }
+            this.setState(cleared);
+        }
+    }
 
     handleChange(event) {
         const value = {};
@@ -36,36 +64,6 @@ class AppointmentForm extends React.Component {
     }
 
 
-    async handleSubmit(event) {
-        event.preventDefault();
-        const data = { ...this.state };
-        delete data.technicians
-        console.log(data)
-
-        const appointmentUrl = 'http://localhost:8080/api/appointments/';
-        const fetchConfig = {
-            method: "post",
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        };
-        const response = await fetch(appointmentUrl, fetchConfig);
-        if (response.ok) {
-            const newAppointment = await response.json();
-            this.setState = {
-                vin: "",
-                customer_name: "",
-                date: "",
-                time: "",
-                reason: "",
-                technician: "",
-            }
-            this.setState(newAppointment);
-        }
-    }
-
-
 
     render() {
         return (
@@ -75,20 +73,20 @@ class AppointmentForm extends React.Component {
                         <h1>Create an Appointment</h1>
                         <form onSubmit={this.handleSubmit} id="create-appointment-form">
                             <div className="form-floating mb-3">
-                                <input onChange={this.handleChange} value={this.state.vin} placeholder="vin" required type="text" name="vin" id="vin" className="form-control" />
-                                <label htmlFor="vin">VIN</label>
+                                <input onChange={this.handleChange} value={this.state.automobile} placeholder="automobile" required type="text" name="automobile" id="automobile" className="form-control" />
+                                <label htmlFor="automobile">VIN</label>
                             </div>
                             <div className="form-floating mb-3">
                                 <input onChange={this.handleChange} value={this.state.customer_name} placeholder="Customer Name" required type="text" name="customer_name" id="customer_name" className="form-control" />
                                 <label htmlFor="customer_name">Customer Name</label>
                             </div>
                             <div className="form-floating mb-3">
-                                <input onChange={this.handleChange} value={this.state.date} placeholder="date" required type="date" name="date" id="date" className="form-control" />
-                                <label htmlFor="date">Date</label>
+                                <input onChange={this.handleChange} value={this.state.appt_date} placeholder="appt_date" required type="date" name="appt_date" id="appt_date" className="form-control" />
+                                <label htmlFor="appt_date">Date</label>
                             </div>
                             <div className="form-floating mb-3">
-                                <input onChange={this.handleChange} value={this.state.time} placeholder="time" required type="time" name="time" id="time" className="form-control" />
-                                <label htmlFor="time">Time</label>
+                                <input onChange={this.handleChange} value={this.state.appt_time} placeholder="appt_time" required type="time" name="appt_time" id="appt_time" className="form-control" />
+                                <label htmlFor="appt_time">Time</label>
                             </div>
                             <div className="form-floating mb-3">
                                 <input onChange={this.handleChange} value={this.state.reason} placeholder="reason" required type="text" name="reason" id="reason" className="form-control" />
@@ -98,7 +96,7 @@ class AppointmentForm extends React.Component {
                                 <option value="">Choose a technician</option>
                                 {this.state.technicians.map(technician => {
                                     return (
-                                        <option key={technician.employee_number} value={technician.employee_number}>
+                                        <option key={technician.id} value={technician.id}>
                                             {technician.name}
                                         </option>
                                     );

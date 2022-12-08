@@ -6,16 +6,52 @@ class AppointmentList extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
+            status: "",
             appointment: []
         }
     }
 
     async componentDidMount() {
-        const url = "http://localhost:8100/api/appointments/"
+        const url = "http://localhost:8080/api/appointments/"
         const response = await fetch(url)
         if (response.ok) {
             const data = await response.json();
-            this.setState({ autos: data.appointment })
+            this.setState({ appointment: data.appointment })
+        }
+    }
+
+
+    async deleteItem(event) {
+        const id = event.target.value
+        const url = `http://localhost:8080/api/appointments/${id}/`
+        const fetchConfig = {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        }
+        const response = await fetch(url, fetchConfig);
+        if (response.ok) {
+            const finishedStatus = await response.json();
+            console.log('status', finishedStatus)
+        }
+        window.location.reload(false);
+    }
+
+    async finishedApp(event) {
+        const id = event.target.value
+        const url = `http://localhost:8080/api/appointments/${id}/`
+        const fetchConfig = {
+            method: "PUT",
+            body: JSON.stringify({ status: true }),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        }
+        const response = await fetch(url, fetchConfig);
+        if (response.ok) {
+            const finishedStatus = await response.json();
+            console.log('status', finishedStatus)
         }
     }
 
@@ -33,6 +69,9 @@ class AppointmentList extends React.Component {
                             <th>Time</th>
                             <th>Technician</th>
                             <th>Reason</th>
+                            <th>VIP</th>
+                            <th>Cancel</th>
+                            <th>Complete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -45,6 +84,15 @@ class AppointmentList extends React.Component {
                                     <td>{appt.appt_time}</td>
                                     <td>{appt.technician.name}</td>
                                     <td>{appt.reason}</td>
+                                    <td>{appt.is_vip.toString()}</td>
+                                    <td>
+                                        <button className="btn btn-danger" onClick={this.deleteItem} id={appt.id} value={appt.id} >Cancel</button>
+                                    </td>
+                                    <td>
+                                        <button className="btn btn-success" onClick={this.finishedApp} id={appt.id} value={appt.id} >Completed</button>
+                                    </td>
+
+
                                 </tr>
                             );
                         })}

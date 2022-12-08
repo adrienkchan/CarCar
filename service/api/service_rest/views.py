@@ -92,8 +92,6 @@ def api_list_appointments(request):
                 {"message": "Invalid employee id"},
                 status=400,
             )
-
-
         appointment = Appointment.objects.create(**content)
         return JsonResponse(
             appointment,

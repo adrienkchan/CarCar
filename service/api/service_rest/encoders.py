@@ -29,6 +29,10 @@ class AppointmentEncoder(ModelEncoder):
         'is_vip',
         'is_finished'
         ]
+    def get_extra_data(self, o):
+        return {
+        "vin": o.automobile.vin
+        }
 
 
     encoders = {

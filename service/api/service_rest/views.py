@@ -101,7 +101,7 @@ def api_list_appointments(request):
 
 
 
-@require_http_methods(["DELETE", "GET", "PUT"])
+@require_http_methods(["DELETE", "PUT"])
 def api_detail_appointment(request, pk):
     if request.method == "DELETE":
         appointment = Appointment.objects.get(id=pk)
@@ -111,19 +111,24 @@ def api_detail_appointment(request, pk):
             encoder=AppointmentEncoder,
             safe=False
         )
-    elif request.method=="GET":
-        appointment = Appointment.objects.get(id=pk)
-        return JsonResponse(
-            appointment,
-            encoder=AppointmentEncoder,
-            safe=False
-        )
     else:
         content = json.loads(request.body)
         Appointment.objects.filter(id=pk).update(**content)
         appointment = Appointment.objects.get(id=pk)
-        return (JsonResponse(
-            appointment,
-            encoder=AppointmentEncoder,
-            safe=False
+    return (JsonResponse(
+        appointment,
+        encoder=AppointmentEncoder,
+    safe=False
         ))
+
+
+@require_http_methods(["GET"])
+def api_show_appointment(request, vin):
+    if request.method == "GET":
+        automobile = AutomobileVO.objects.get(vin=vin)
+        appointments = Appointment.objects.filter(automobile=automobile)
+        return JsonResponse(
+            {"appointments": appointments},
+            encoder = AppointmentEncoder,
+            safe=False,
+        )

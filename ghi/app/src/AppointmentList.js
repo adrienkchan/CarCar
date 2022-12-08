@@ -60,6 +60,9 @@ class AppointmentList extends React.Component {
         return (
             <div>
                 <h1>Appointments</h1>
+                <div className="d-grid gap-2 d-sm-flex justify-content-sm-right">
+                    <Link to="/appointments/new/" className="btn btn-primary btn-md px-4 gap-3">Create an appointment</Link>
+                </div>
                 <table className="table">
                     <thead>
                         <tr>

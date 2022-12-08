@@ -13,9 +13,9 @@ from .encoders import (
 @require_http_methods(["GET", "POST"])
 def api_list_technician(request):
     if request.method == "GET":
-        technician = Technician.objects.all()
+        technicians = Technician.objects.all()
         return JsonResponse(
-            {"technician": technician},
+            {"technicians": technicians},
             encoder=TechnicianEncoder,
             safe=False
         )

@@ -31,7 +31,7 @@ class AppointmentForm extends React.Component {
         const response = await fetch(techUrl);
         if (response.ok) {
             const data = await response.json();
-            this.setState({ technician: data.technicians });
+            this.setState({ technicians: data.technicians });
         }
     }
 

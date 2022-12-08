@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Link } from 'react-router-dom'
 
 class AppointmentForm extends React.Component {
     constructor(props) {
@@ -7,8 +7,7 @@ class AppointmentForm extends React.Component {
         this.state = {
             automobile: "",
             customer_name: "",
-            appt_date: "",
-            appt_time: "",
+            starts: "",
             reason: "",
             technician: "",
             technicians: [],
@@ -38,8 +37,7 @@ class AppointmentForm extends React.Component {
             const cleared = {
                 automobile: "",
                 customer_name: "",
-                appt_date: "",
-                appt_time: "",
+                starts: "",
                 reason: "",
                 technician: "",
             }
@@ -81,12 +79,8 @@ class AppointmentForm extends React.Component {
                                 <label htmlFor="customer_name">Customer Name</label>
                             </div>
                             <div className="form-floating mb-3">
-                                <input onChange={this.handleChange} value={this.state.appt_date} placeholder="appt_date" required type="date" name="appt_date" id="appt_date" className="form-control" />
-                                <label htmlFor="appt_date">Date</label>
-                            </div>
-                            <div className="form-floating mb-3">
-                                <input onChange={this.handleChange} value={this.state.appt_time} placeholder="appt_time" required type="time" name="appt_time" id="appt_time" className="form-control" />
-                                <label htmlFor="appt_time">Time</label>
+                                <input onChange={this.handleChange} value={this.state.starts} placeholder="starts" required type="datetime-local" name="starts" id="starts" className="form-control" />
+                                <label htmlFor="starts">Date</label>
                             </div>
                             <div className="form-floating mb-3">
                                 <input onChange={this.handleChange} value={this.state.reason} placeholder="reason" required type="text" name="reason" id="reason" className="form-control" />

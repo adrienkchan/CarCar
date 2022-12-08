@@ -65,8 +65,7 @@ class AppointmentList extends React.Component {
                         <tr>
                             <th>VIN</th>
                             <th>Owner</th>
-                            <th>Date</th>
-                            <th>Time</th>
+                            <th>Appointment Date/Time</th>
                             <th>Technician</th>
                             <th>Reason</th>
                             <th>VIP</th>
@@ -80,8 +79,7 @@ class AppointmentList extends React.Component {
                                 <tr key={appt.id}>
                                     <td>{appt.automobile.vin}</td>
                                     <td>{appt.customer_name}</td>
-                                    <td>{appt.appt_date}</td>
-                                    <td>{appt.appt_time}</td>
+                                    <td>{appt.starts}</td>
                                     <td>{appt.technician.name}</td>
                                     <td>{appt.reason}</td>
                                     <td>{appt.is_vip.toString()}</td>

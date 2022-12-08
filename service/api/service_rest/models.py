@@ -28,8 +28,7 @@ class Appointment(models.Model):
         on_delete=models.PROTECT
     )
     customer_name = models.CharField(max_length=100)
-    appt_date = models.DateField(auto_now_add=False, auto_now=False, null=True)
-    appt_time = models.TimeField(auto_now_add=False, auto_now=False, null=True)
+    starts = models.DateTimeField(null=True)
     reason = models.TextField()
     technician = models.ForeignKey(
         Technician,

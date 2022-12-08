@@ -1,11 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 
+
 class AutomobileList extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            automobiles: []
+            autos: []
         }
     }
 
@@ -13,10 +14,11 @@ class AutomobileList extends React.Component {
         const url = "http://localhost:8100/api/automobiles/"
         const response = await fetch(url)
         if (response.ok) {
-            let data = await response.json();
-            this.setState({ automobiles: data.automobiles })
+            const data = await response.json();
+            this.setState({ autos: data.autos })
         }
     }
+
 
     render() {
         return (
@@ -27,20 +29,22 @@ class AutomobileList extends React.Component {
                         <tr>
                             <th>Color</th>
                             <th>Year</th>
-                            <th>VIN</th>
+                            <th>Vin</th>
                             <th>Model</th>
+                            <th>Make</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {this.state.automobiles.map(auto => {
+                        {this.state.autos.map(auto => {
                             return (
                                 <tr key={auto.id}>
                                     <td>{auto.color}</td>
                                     <td>{auto.year}</td>
                                     <td>{auto.vin}</td>
-                                    <td>{auto.model}</td>
+                                    <td>{auto.model.name}</td>
+                                    <td>{auto.model.manufacturer.name}</td>
                                 </tr>
-                            )
+                            );
                         })}
                     </tbody>
                 </table>
@@ -49,4 +53,4 @@ class AutomobileList extends React.Component {
     }
 }
 
-export default AutomobileList
+export default AutomobileList;

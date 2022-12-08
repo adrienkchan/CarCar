@@ -8,7 +8,7 @@ class AutomobileForm extends React.Component {
             color: "",
             year: "",
             vin: "",
-            model: "",
+            model: '',
             models: []
         };
         this.handleChange = this.handleChange.bind(this);
@@ -19,6 +19,8 @@ class AutomobileForm extends React.Component {
         event.preventDefault();
         const data = { ...this.state };
         delete data.models
+        data["model_id"] = data["model"]
+        delete data.model
         console.log(data)
 
         const locationUrl = 'http://localhost:8100/api/automobiles/';
@@ -75,8 +77,8 @@ class AutomobileForm extends React.Component {
                                     <option value="">Choose a model</option>
                                     {this.state.models.map(model => {
                                         return (
-                                            <option key={model.href} value={model.id}>
-                                                {model.name} by {model.manufacturer.name}
+                                            <option key={model.id} value={model.id}>
+                                                {model.name}
                                             </option>
                                         );
                                     })}

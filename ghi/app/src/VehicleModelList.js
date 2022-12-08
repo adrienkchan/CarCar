@@ -22,7 +22,10 @@ class VehicleModelList extends React.Component {
     render() {
         return (
             <div>
-                <h1>Vehicel Models</h1>
+                <h1>Vehicle Models</h1>
+                <div className="d-grid gap-2 d-sm-flex justify-content-sm-right">
+                    <Link to="/models/new/" className="btn btn-primary btn-md px-4 gap-3">Add new vehicle model</Link>
+                </div>
                 <table className="table">
                     <thead>
                         <tr>
@@ -37,7 +40,7 @@ class VehicleModelList extends React.Component {
                                 <tr key={model.id}>
                                     <td>{model.manufacturer.name}</td>
                                     <td>{model.name}</td>
-                                    <td><img className="vehicle-img" src={model.picture_url} alt=""/></td>
+                                    <td><img style={{height:"100px", width:"200px"}} src={model.picture_url} alt=""/></td>
                                 </tr>
                             )
                         })}

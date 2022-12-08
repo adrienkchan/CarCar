@@ -114,8 +114,8 @@ class SalesRecordForm extends React.Component {
                                     </select>
                                 </div>
                                 <div className="form-floating mb-3">
-                                    <label htmlFor="price">Price</label>
                                     <input onChange={this.handleChange} value={this.state.price} placeholder="price" required type="text" name="price" id="price" className="form-control" />
+                                    <label htmlFor="price">Price</label>
                                 </div>
                                 <button className="btn btn-primary">Create</button>
                             </form>

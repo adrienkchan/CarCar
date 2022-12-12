@@ -31,7 +31,7 @@ run the following commands:
 3.```docker-compose up```
 
  - Allow up to 5-10 minutes for docker containers to fully function
- 
+
  - When the docker containers are up and running navigate to http://localhost:3000/ to see the application.
 
  - navigation will be at the top of the page.
@@ -82,6 +82,15 @@ example JSON
 }
 ```
 
+example output
+```json
+{
+	"href": "/api/manufacturers/1/",
+	"id": 1,
+	"name": "Chrysler"
+}
+```
+
 </br>
 </br>
 
@@ -103,6 +112,22 @@ example JSON
   "manufacturer_id": 2
 }
 ```
+
+example output
+```json
+{
+	"href": "/api/models/3/",
+	"id": 3,
+	"name": "Camry",
+	"picture_url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Toyota_Camry_%28XV70%29_IMG_5294.jpg",
+	"manufacturer": {
+		"href": "/api/manufacturers/2/",
+		"id": 2,
+		"name": "Toyota"
+	}
+}
+```
+
 </br>
 </br>
 
@@ -123,6 +148,28 @@ example JSON
   "year": 2020,
   "vin": "ABCDEFGHIJKLMNO",
   "model_id": 2
+}
+```
+
+example output
+```json
+{
+	"href": "/api/automobiles/ABCDEFGHIJKLMNO/",
+	"id": 3,
+	"color": "silver",
+	"year": 2020,
+	"vin": "ABCDEFGHIJKLMNO",
+	"model": {
+		"href": "/api/models/2/",
+		"id": 2,
+		"name": "Camry",
+		"picture_url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Toyota_Camry_%28XV70%29_IMG_5294.jpg",
+		"manufacturer": {
+			"href": "/api/manufacturers/2/",
+			"id": 2,
+			"name": "Toyota"
+		}
+	}
 }
 ```
 
@@ -170,6 +217,14 @@ example JSON
 }
 
 ```
+example output
+```json
+{
+	"id": 3,
+    "name": "Sean Myrom",
+	"employee_number": "101"
+}
+```
 
 </br>
 </br>
@@ -193,7 +248,28 @@ example JSON
 }
 
 ```
-
+example output
+```json
+{
+	"id" 7,
+    "automobile": {
+        "vin": "2B6CC5FB2AN1",
+        "color": "grey",
+        "year": 2014,
+    },
+	"customer_name": "Bob",
+    "starts": null,
+    "reason": "Windshield repair",
+	"technician" {
+        "id": 3,
+        "name": "John Wall",
+        "employee_number": "222",
+    },
+    "is_vip": "True",
+    "is_finished": "False",
+    "vin": "2B6CC5FB2AN1",
+}
+```
 
 </br>
 </br>
@@ -206,7 +282,7 @@ Within the Sales microservice there are four models:
 
 1. AutomobileVO
 
-    - Value Object that represents the VIN, color, and year of the automobile model from Inventory microservice.
+    - Value Object that represents the VIN, color, and year of the automobile model which is polled from the Inventory microservice.
 
 2. Customer
 
@@ -238,6 +314,17 @@ example JSON
 }
 ```
 
+example output
+```json
+{
+	"name": "Adrien Chan",
+	"address": "381 Arkansaw Ave",
+	"phone_number": 5108521579,
+	"id": 2
+}
+```
+
+
 </br>
 </br>
 
@@ -255,6 +342,16 @@ example JSON
 	"number": 512
 }
 ```
+
+example output
+```json
+{
+	"name": "Hawaiian Brian",
+	"number": 512,
+	"id": 1
+}
+```
+
 </br>
 </br>
 
@@ -273,5 +370,31 @@ example JSON
 	"customer": 2,
 	"automobile": "ABCDEFGHIJKLMNO",
 	"price": "48000"
+}
+```
+
+example output
+```json
+{
+	"sales_person": {
+		"name": "Adrien Chan",
+		"number": "1",
+		"id": 1
+	},
+	"customer": {
+		"name": "John Doe",
+		"address": "381 Arkansaw Ave",
+		"phone_number": "5108521579",
+		"id": 2
+	},
+	"automobile": {
+		"vin": "ABCDEFGHIJKLMNO",
+		"color": "silver",
+		"year": 2020,
+		"sold": false,
+		"id": 3
+	},
+	"price": "48000",
+	"id": 3
 }
 ```

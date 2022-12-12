@@ -53,10 +53,10 @@ class SalesPersonForm extends React.Component {
                             <h1>Become a Sales Person</h1>
                             <form onSubmit={this.handleSubmit} id="create-salesperson-form">
                                 <div>
-                                    <input onChange={this.handleChange} value={this.state.name} placeholder="name" required type="text" name="name" id="name" className="form-control" />
                                     <label htmlFor="name">Name</label>
-                                    <input onChange={this.handleChange} value={this.state.number} placeholder="number" required type="text" name="number" id="number" className="form-control" />
+                                    <input onChange={this.handleChange} value={this.state.name} placeholder="Name" required type="text" name="name" id="name" className="form-control" />
                                     <label htmlFor="name">Employee Number</label>
+                                    <input onChange={this.handleChange} value={this.state.number} placeholder="Number" required type="text" name="number" id="number" className="form-control" />
                                 </div>
                                 <button className="btn btn-primary">Create</button>
                             </form>

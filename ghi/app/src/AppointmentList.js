@@ -6,7 +6,7 @@ class AppointmentList extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            status: "",
+            is_finished: "",
             appointment: []
         }
     }
@@ -33,7 +33,7 @@ class AppointmentList extends React.Component {
         const response = await fetch(url, fetchConfig);
         if (response.ok) {
             const finishedStatus = await response.json();
-            console.log('status', finishedStatus)
+            console.log('is_finished', finishedStatus)
         }
         window.location.reload(false);
     }
@@ -43,7 +43,7 @@ class AppointmentList extends React.Component {
         const url = `http://localhost:8080/api/appointments/${id}/`
         const fetchConfig = {
             method: "PUT",
-            body: JSON.stringify({ status: true }),
+            body: JSON.stringify({ is_finished: true }),
             headers: {
                 "Content-Type": "application/json",
             },
@@ -51,7 +51,7 @@ class AppointmentList extends React.Component {
         const response = await fetch(url, fetchConfig);
         if (response.ok) {
             const finishedStatus = await response.json();
-            console.log('status', finishedStatus)
+            console.log('is_finished', finishedStatus)
         }
     }
 

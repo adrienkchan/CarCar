@@ -115,11 +115,11 @@ def api_detail_appointment(request, pk):
         content = json.loads(request.body)
         Appointment.objects.filter(id=pk).update(**content)
         appointment = Appointment.objects.get(id=pk)
-    return (JsonResponse(
+    return JsonResponse(
         appointment,
         encoder=AppointmentEncoder,
-    safe=False
-        ))
+        safe=False
+        )
 
 
 @require_http_methods(["GET"])

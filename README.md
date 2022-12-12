@@ -7,6 +7,8 @@ Team:
 
 </br>
 
+## Table of Contents
+
 [TOC]
 
 ## Design

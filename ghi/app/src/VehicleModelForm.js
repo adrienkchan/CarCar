@@ -25,6 +25,7 @@ class VehicleModelForm extends React.Component {
     async handleSubmit(event) {
         event.preventDefault();
         const data = { ...this.state };
+        data.manufacturer_id = data.manufacturer
         delete data.manufacturers;
 
         const locationUrl = 'http://localhost:8100/api/models/';

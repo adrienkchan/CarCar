@@ -30,6 +30,8 @@ run the following commands:
 
 3.```docker-compose up```
 
+ - Allow up to 5-10 minutes for docker containers to fully function
+ 
  - When the docker containers are up and running navigate to http://localhost:3000/ to see the application.
 
  - navigation will be at the top of the page.
